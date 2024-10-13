@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Series de Television</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Series de Television</h1>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Canal</th>
+          <th scope="col">Temporadas</th>
+        </tr>
+      </thead>
+      <tbody id="series">
+       
+      </tbody>
+    </table>
+    <p id="average-seasons"></p>
+  </div>
+
+  <script>
+    
+    const series = [
+      { id: 1, name: "Breaking Bad", channel: "AMC", seasons: 5, webpage: "https://www.amc.com/shows/breaking-bad" },
+      { id: 2, name: "Orange Is the New Black", channel: "Netflix", seasons: 6, webpage: "https://www.netflix.com/co/title/70242311" },
+      { id: 3, name: "Game of Thrones", channel: "HBO", seasons: 7, webpage: "https://www.hbo.com/game-of-thrones" },
+      { id: 4, name: "The Big Bang Theory", channel: "CBS", seasons: 12, webpage: "https://www.cbs.com/shows/big_bang_theory/about/" },
+      { id: 5, name: "Sherlock", channel: "BBC", seasons: 4, webpage: "https://www.bbc.co.uk/programmes/b018ttws" },
+      { id: 6, name: "A Very English Scandal", channel: "BBC", seasons: 2, webpage: "https://www.bbc.co.uk/programmes/p065smy4" }
+    ];
+
+   
+    function renderSeriesInTable(series) {
+      const seriesTbody = document.getElementById('series');
+      series.forEach(s => {
+        const trElement = document.createElement("tr");
+        trElement.innerHTML = `
+          <th scope="row">${s.id}</th>
+          <td><a href="${s.webpage}" target="_blank">${s.name}</a></td>
+          <td>${s.channel}</td>
+          <td>${s.seasons}</td>
+        `;
+        seriesTbody.appendChild(trElement);
+      });
+    }
+
+    
+    function getSeasonsAverage(series) {
+      const totalSeasons = series.reduce((acc, serie) => acc + serie.seasons, 0);
+      return totalSeasons / series.length;
+    }
+
+    
+    renderSeriesInTable(series);
+    const averageSeasonsElement = document.getElementById('average-seasons');
+    averageSeasonsElement.innerHTML = `Promedio de temporadas: ${getSeasonsAverage(series).toFixed(2)}`;
+  </script>
+</body>
+</html>
